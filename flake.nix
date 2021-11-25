@@ -15,7 +15,7 @@
           haskellNix.overlay
           (final: prev: {
             # This overlay adds our project to pkgs
-            dana-swap =
+            Piecemeal =
               final.haskell-nix.project' {
                 src = ./.;
                 compiler-nix-name = "ghc8107";
@@ -50,10 +50,10 @@
           })
         ];
         pkgs = import nixpkgs { inherit system overlays; inherit (haskellNix) config; };
-        flake = pkgs.dana-swap.flake { };
+        flake = pkgs.Piecemeal.flake { };
       in
       flake // {
-        defaultPackage = flake.packages."dana-swap:exe:dana-swap-pab";
+        defaultPackage = flake.packages."Piecemeal:exe:Piecemeal";
         devShell = flake.devShell.overrideAttrs (oa: {
           shellHook = oa.shellHook + ''
             export SHELLEY_TEST_DATA="${plutus-apps}/plutus-pab/local-cluster/cluster-data/cardano-node-shelley/"

@@ -31,7 +31,6 @@ executable Piecemeal
       plutus-ledger-api,
       tasty -any,
       tasty-hedgehog -any,
-      -- Dependencies for cbor script calculation (used by exe:dana-swap-cbor
       cardano-api -any,
       serialise -any,
       cardano-ledger-alonzo -any
