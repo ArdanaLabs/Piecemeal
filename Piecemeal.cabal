@@ -10,6 +10,7 @@ maintainer:    ryanmatovu@gmail.com
 executable Piecemeal
     other-modules:
       Piecemeal.Empty
+      Piecemeal.TypedValidator
     build-depends:
       base >= 4.9 && < 5,
       aeson,

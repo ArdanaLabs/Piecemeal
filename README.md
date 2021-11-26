@@ -10,9 +10,10 @@ Run `cabal run` in nix-shell.
 
 Code size in bytes for each validator [defined here](https://github.com/ArdanaLabs/Piecemeal/tree/main/src/Piecemeal):
 
-| Validator | Script size in bytes |
-| --------- | -------------------- |
-| Empty     | 14                   |
+| Validator              | Script size in bytes |
+| ---------------------- | -------------------: |
+| Empty                  |                   14 |
+| Empty, Typed Validator |                 2498 |
 
 ## Resources
 

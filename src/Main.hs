@@ -9,7 +9,7 @@ import qualified Cardano.Ledger.Alonzo.Data as Alonzo
 import Codec.Serialise
 import qualified Data.ByteString.Lazy as LB
 import qualified Data.ByteString.Short as SBS
-import Piecemeal.Empty (validator)
+import qualified Piecemeal.TypedValidator as V
 import qualified Plutus.V1.Ledger.Api as Plutus
 import Prelude
 
@@ -42,4 +42,4 @@ generatePlutusScriptAndReport = do
     plutusScriptShortBs = SBS.toShort $ LB.toStrict scriptAsCbor
 
     scriptAsCbor :: LB.ByteString
-    scriptAsCbor = serialise validator
+    scriptAsCbor = serialise V.validator
