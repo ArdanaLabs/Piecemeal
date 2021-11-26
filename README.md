@@ -18,9 +18,31 @@ Code size in bytes for each validator [defined here](https://github.com/ArdanaLa
 | Hello.hs          | `data`, `newtype` (w/ `TypedValidator`)   |                 2575 |
 | -                 | `data`, `newtype` (sans `TypedValidator`) |                 2224 |
 
+## Notes
+
+Plutus compilation pipeline:
+
+1. GHC: Haskell -> [GHC Core](https://serokell.io/blog/haskell-to-core)
+1. Plutus Tx compiler: GHC Core -> Plutus IR (**PIR**)
+1. Plutus IR compiler: Plutus IR -> Typed Plutus Core (**TPLC**)
+1. Type eraser: Typed Plutus Core -> Untyped Plutus Core (**UPLC**)
+
+```mermaid
+flowchart LR
+  Haskell -- GHC --> Core[GHC Core]
+  subgraph Plutus
+    direction TB
+    Core -- Plutus Tx compiler --> PIR
+    PIR -- Plutus IR compiler --> TPLC
+    TPLC -- Type eraser --> UPLC
+  end
+```
 ## Resources
 
 - [How to analyse the cost and size of Plutus scripts](https://marlowe-playground-staging.plutus.aws.iohkdev.io/doc/plutus/howtos/analysing-scripts.html)
+  - [ ] Use EmulatorTrace monad, and then calculate costs
+- [Plutus Tx: compiling Haskell into Plutus Core](https://iohk.io/en/blog/posts/2021/02/02/plutus-tx-compiling-haskell-into-plutus-core/)
+  - [ ] Display IR 
 
 [^ectx]: Determined by applying this patch on to `Empty.hs`:
 
