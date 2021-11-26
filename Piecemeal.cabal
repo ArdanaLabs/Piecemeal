@@ -11,6 +11,7 @@ executable Piecemeal
     other-modules:
       Piecemeal.Empty
       Piecemeal.TypedValidator
+      Piecemeal.Hello
     build-depends:
       base >= 4.9 && < 5,
       aeson,

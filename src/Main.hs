@@ -9,7 +9,7 @@ import qualified Cardano.Ledger.Alonzo.Data as Alonzo
 import Codec.Serialise
 import qualified Data.ByteString.Lazy as LB
 import qualified Data.ByteString.Short as SBS
-import qualified Piecemeal.TypedValidator as V
+import qualified Piecemeal.Hello as V
 import qualified Plutus.V1.Ledger.Api as Plutus
 import Prelude
 
