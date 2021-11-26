@@ -15,6 +15,7 @@ executable Piecemeal
     build-depends:
       base >= 4.9 && < 5,
       aeson,
+      prettyprinter,
       bytestring,
       containers,
       either,

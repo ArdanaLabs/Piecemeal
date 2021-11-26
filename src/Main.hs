@@ -9,7 +9,7 @@ import qualified Cardano.Ledger.Alonzo.Data as Alonzo
 import Codec.Serialise
 import qualified Data.ByteString.Lazy as LB
 import qualified Data.ByteString.Short as SBS
-import qualified Piecemeal.Hello as V
+import qualified Piecemeal.Empty as V
 import qualified Plutus.V1.Ledger.Api as Plutus
 import Prelude
 
@@ -31,6 +31,7 @@ generatePlutusScriptAndReport = do
   result <- writeFileTextEnvelope "contract.plutus" Nothing plutusScript
   putStrLn "Wrote: contract.plutus"
   putStrLn $ "Code size (bytes): " <> show (SBS.length plutusScriptShortBs)
+  print V.validatorPir
   case result of
     Left err -> print $ displayError err
     Right () -> return ()

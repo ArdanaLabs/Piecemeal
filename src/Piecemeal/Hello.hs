@@ -6,8 +6,9 @@
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fplugin-opt PlutusTx.Plugin:dump-pir-flat #-}
 
-module Piecemeal.Hello (validator) where
+module Piecemeal.Hello (validator, validatorPir) where
 
 import Ledger
   ( Address,
@@ -25,7 +26,9 @@ import Ledger.Typed.Scripts
     wrapValidator,
   )
 import qualified PlutusTx
+import qualified PlutusTx.Code as PC
 import PlutusTx.Prelude
+import qualified Prettyprinter as PP
 
 data Hello
 
@@ -55,6 +58,12 @@ typedValidator =
     $$(PlutusTx.compile [||wrap||])
   where
     wrap = wrapValidator
+
+validatorPir :: PP.Doc ann
+validatorPir =
+  PP.pretty $
+    PC.getPir
+      $$(PlutusTx.compile [||mkValidator||])
 
 validator :: Validator
 validator = validatorScript typedValidator

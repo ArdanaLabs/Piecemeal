@@ -4,7 +4,7 @@ Building a contract piecemeal, and assessing how each change impacts the network
 
 This repo is based off the slimmed down DanaSwap repo (not `plutus-starter`, as it uses a suboptimal Nix setup for Haskell).
 
-Run `cabal run` in nix-shell.
+Run `cabal run` in nix-shell. Or `ghcid -T :main`.
 
 ## Sizes
 
@@ -37,6 +37,34 @@ flowchart LR
     TPLC -- Type eraser --> UPLC
   end
 ```
+
+To get the PIR representation, run `show` on:
+
+```haskell
+import qualified Prettyprinter as PP
+import qualified PlutusTx.Code as PC
+
+validatorPir :: PP.Doc ann
+validatorPir =
+  PP.pretty $
+    PC.getPir
+      $$(PlutusTx.compile [||mkValidator||])
+```
+
+For our Empty validator, this will dump the simplest PIR:
+
+```lisp
+(program
+  (let
+    (nonrec)
+    (datatypebind
+      (datatype (tyvardecl Unit (type))  Unit_match (vardecl Unit Unit))
+    )
+    (lam ds (con data) (lam ds (con data) (lam ds (con data) Unit)))
+  )
+)
+```
+
 ## Resources
 
 - [How to analyse the cost and size of Plutus scripts](https://marlowe-playground-staging.plutus.aws.iohkdev.io/doc/plutus/howtos/analysing-scripts.html)
@@ -46,14 +74,14 @@ flowchart LR
 
 [^ectx]: Determined by applying this patch on to `Empty.hs`:
 
-        ```diff
-        {-# INLINEABLE mkValidator #-}
-        mkValidator :: BuiltinData -> BuiltinData -> BuiltinData -> ()
-        -mkValidator _ _ _ = ()
-        +mkValidator d r ctx =
-        +  mkValidator' d r (PlutusTx.unsafeFromBuiltinData ctx)
-        +
-        +{-# INLINEABLE mkValidator' #-}
-        +mkValidator' :: BuiltinData -> BuiltinData -> ScriptContext -> ()
-        +mkValidator' _ _ _ = ()
-        ```
+      ```diff
+      {-# INLINEABLE mkValidator #-}
+      mkValidator :: BuiltinData -> BuiltinData -> BuiltinData -> ()
+      -mkValidator _ _ _ = ()
+      +mkValidator d r ctx =
+      +  mkValidator' d r (PlutusTx.unsafeFromBuiltinData ctx)
+      +
+      +{-# INLINEABLE mkValidator' #-}
+      +mkValidator' :: BuiltinData -> BuiltinData -> ScriptContext -> ()
+      +mkValidator' _ _ _ = ()
+      ```

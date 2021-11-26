@@ -10,7 +10,7 @@
 -- | An "empty" script validator that always succeeds.
 --
 -- Represents the smallest validator script possible in Plutus.
-module Piecemeal.Empty (validator) where
+module Piecemeal.Empty (validator, validatorPir) where
 
 import Ledger
   ( Address,
@@ -21,7 +21,15 @@ import Ledger
   )
 import qualified Ledger.Scripts as Scripts
 import qualified PlutusTx
+import qualified PlutusTx.Code as PC
 import PlutusTx.Prelude
+import qualified Prettyprinter as PP
+
+validatorPir :: PP.Doc ann
+validatorPir =
+  PP.pretty $
+    PC.getPir
+      $$(PlutusTx.compile [||mkValidator||])
 
 {-# INLINEABLE mkValidator #-}
 mkValidator :: BuiltinData -> BuiltinData -> BuiltinData -> ()
