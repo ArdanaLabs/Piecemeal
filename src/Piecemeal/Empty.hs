@@ -7,6 +7,9 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 
+-- | An "empty" script validator that always succeeds.
+--
+-- Represents the smallest validator script possible in Plutus.
 module Piecemeal.Empty (validator) where
 
 import Ledger
