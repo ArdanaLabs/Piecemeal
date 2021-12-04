@@ -26,6 +26,7 @@ executable Piecemeal
       text -any,
       mtl,
       playground-common,
+      plutus-core,
       plutus-pab,
       plutus-contract,
       plutus-tx-plugin,

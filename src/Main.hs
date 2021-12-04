@@ -12,6 +12,7 @@ import qualified Data.ByteString.Short as SBS
 import Ledger
 import qualified Piecemeal.Empty as V
 import qualified Plutus.V1.Ledger.Api as Plutus
+import qualified PlutusCore.Pretty as Pretty
 import qualified Shower
 import Prelude
 
@@ -31,7 +32,9 @@ generatePlutusScriptAndReport = do
               Right exbudget -> putStr ("Ex Budget: " :: String) >> print exbudget
     Nothing -> error "defaultCostModelParams failed"
   print V.validatorPir
-  Shower.printer $ unScript $ getValidator V.validator
+  let uplc = unScript $ getValidator V.validator
+  Shower.printer uplc
+  putStrLn $ Pretty.display uplc
   result <- writeFileTextEnvelope "contract.plutus" Nothing plutusScript
   putStrLn "Wrote: contract.plutus"
   putStrLn $ "Code size (bytes): " <> show (SBS.length plutusScriptShortBs)
