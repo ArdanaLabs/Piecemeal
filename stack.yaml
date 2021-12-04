@@ -190,6 +190,10 @@ extra-deps:
   - quickcheck-dynamic
   - web-ghc
   # nix-sha256: sha256-u8gU/uQYNDA0KM6+hNI3Oo0qOfjBx04b30I/Zsbv2Pc=
+- git: https://github.com/monadfix/shower.git
+  commit: 3e02d92e0500e41b4e9932294f4960463a7222d4
+  # nix-sha256: sha256-JGOO02bWpr2cUQdJItu56AeGKfQI4TmrmIkXDqkxe6Q=
+
 
 
 allow-newer: true

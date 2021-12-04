@@ -30,7 +30,6 @@
                       pkgs.lib.mkForce [ [ (import plutus { inherit system; }).pkgs.libsodium-vrf ] ];
                     cardano-crypto-class.components.library.pkgconfig =
                       pkgs.lib.mkForce [ [ (import plutus { inherit system; }).pkgs.libsodium-vrf ] ];
-
                   };
                 }];
                 shell.tools = {
