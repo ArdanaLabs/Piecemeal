@@ -65,12 +65,27 @@ For our Empty validator, this will dump the simplest PIR:
 )
 ```
 
+To dump TPLC,
+
+```haskell
+{-# OPTIONS_GHC -fplugin-opt PlutusTx.Plugin:dump-plc #-}
+```
+
+To dump UPLC,
+
+```haskell
+{-# OPTIONS_GHC -fplugin-opt PlutusTx.Plugin:dump-uplc #-}
+```
+
+- [ ] human readable TPLC
+- [ ] human readable UPLC
+
 ## Resources
 
 - [How to analyse the cost and size of Plutus scripts](https://marlowe-playground-staging.plutus.aws.iohkdev.io/doc/plutus/howtos/analysing-scripts.html)
   - [ ] Use EmulatorTrace monad, and then calculate costs
 - [Plutus Tx: compiling Haskell into Plutus Core](https://iohk.io/en/blog/posts/2021/02/02/plutus-tx-compiling-haskell-into-plutus-core/)
-  - [ ] Display IR 
+- [Compiler optimizations for smaller script outputs #4174](https://github.com/input-output-hk/plutus/issues/4174)
 
 [^ectx]: Determined by applying this patch on to `Empty.hs`:
 

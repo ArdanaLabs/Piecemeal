@@ -9,8 +9,10 @@ import qualified Cardano.Ledger.Alonzo.Data as Alonzo
 import Codec.Serialise
 import qualified Data.ByteString.Lazy as LB
 import qualified Data.ByteString.Short as SBS
+import Ledger
 import qualified Piecemeal.Empty as V
 import qualified Plutus.V1.Ledger.Api as Plutus
+import qualified Shower
 import Prelude
 
 main :: IO ()
@@ -28,10 +30,11 @@ generatePlutusScriptAndReport = do
               Left evalErr -> putStr ("Eval Error: " :: String) >> print evalErr
               Right exbudget -> putStr ("Ex Budget: " :: String) >> print exbudget
     Nothing -> error "defaultCostModelParams failed"
+  print V.validatorPir
+  Shower.printer $ unScript $ getValidator V.validator
   result <- writeFileTextEnvelope "contract.plutus" Nothing plutusScript
   putStrLn "Wrote: contract.plutus"
   putStrLn $ "Code size (bytes): " <> show (SBS.length plutusScriptShortBs)
-  print V.validatorPir
   case result of
     Left err -> print $ displayError err
     Right () -> return ()
